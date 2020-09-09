@@ -1,3 +1,12 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users
+  root to: 'notes#index'
+  resources :notes do
+    collection do
+      get 'detail'
+    end
+    collection do
+      get 'search'
+    end
+  end  
 end

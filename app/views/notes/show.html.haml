@@ -1,0 +1,15 @@
+%p#notice= notice
+%p
+  %strong タイトル
+  = @note.title
+%p
+  %strong 時間
+  = @note.start_time.strftime("%Y-%m-%d %H:%M")
+%p
+  %strong 内容
+  = @note.content
+  %br/
+  = link_to '編集', edit_note_path(@note)
+  = link_to '削除',note_path(@note), method: :delete, data: { confirm: 'Are you sure?' }
+  %br/
+= link_to 'Back', notes_path
