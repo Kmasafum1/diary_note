@@ -1,0 +1,24 @@
+.header
+  .search-box
+    = form_with(url: search_notes_path, local: true, method: :get, class: "search-form") do |form|
+      %i.fas.fa-search
+        = form.text_field :keyword, placeholder: "type to search your schedule", class: "search-input"
+        = form.submit "検索", class: "search-btn"  
+  .Navbar    
+    - if user_signed_in?
+      .Navbar__nav
+        = link_to "Diary_Noteとは", detail_notes_path, class: "nav-link"
+        = link_to "ログアウト", destroy_user_session_path, method: :delete, class: "Navbar__logout"
+    - else
+      .Navbar__nav
+        = link_to "ログイン", new_user_session_path, class: "nav-link"
+        = link_to "新規登録", new_user_registration_path, class: "nav-link"
+
+%table
+  - if user_signed_in?
+    = link_to '新規スケジュール', new_note_path
+= month_calendar events: @notes do |date, notes|
+  = date.day
+  - notes.each do |note|
+    %div
+      = link_to note.title, note
